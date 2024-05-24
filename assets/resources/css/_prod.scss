@@ -1,0 +1,83 @@
+@use "function" as *;
+@use "variable" as *;
+@use "mixins" as *;
+
+.main-prod {
+    @mixin MainProd($params: null) {
+        &-head {
+            @include textXL;
+            margin-bottom: 24px;
+        }
+        &-cards {
+            display: grid;
+            grid-template-columns: repeat(GetParam($params, cards_repeat, 3), 1fr);
+            gap: GetParam($params, cards_gap, 20px);
+            //grid-template-rows: 200px;
+        }
+        &-card {
+            position: GetParam($params, card_position, null);
+            display: GetParam($params, card_display, null);
+            border: 2px solid $colorBackgroundGray;
+            color: $colorTextDark;
+            cursor: pointer;
+            &:hover &-text > div:nth-child(1) {
+                color: $colorTextAccent;
+            }
+            &-img {
+                > img {
+                    width: GetParam($params, img_height, 155px);
+                    height: GetParam($params, img_width, 100%);
+                    object-fit: cover;
+                }
+            }
+            &-text {
+                padding: 20px;
+
+                position: GetParam($params, text_pos, null);
+                bottom: GetParam($params, text_bot, null);
+                left: GetParam($params, text_bot, null);
+                right: GetParam($params, text_bot, null);
+                background-color: GetParam($params, text_bg, null);
+                backdrop-filter: GetParam($params, text_filter, null);
+                > div:nth-child(1) {
+                    @include textS-bold;
+                    margin-bottom: GetParam($params, text_head_margin, 12px);
+                    text-transform: uppercase;
+                }
+                > div:nth-child(2) {
+                    @include textS;
+
+                    overflow: GetParam($params, text_overflow, null);
+                    -webkit-line-clamp: GetParam($params, text_line_clamp, null);
+                    display: GetParam($params, text_display, null);
+                    -webkit-box-orient: GetParam($params, text_box_orient, null);
+                }
+            }
+            &:hover &-text > div:nth-child(2) {
+                display: GetParam($params, text_display_hover, null);
+            }
+        }
+    }
+
+    @include MixScreen(null, $sizeL) { @include MainProd((
+            cards_gap: 8px,
+            cards_repeat: 1,
+            card_position: relative,
+            img_height: 100%,
+            img_width: 160px,
+            text_pos: absolute,
+            text_bot: 0,
+            text_bg: #ffffff40,
+            text_filter: blur(24px),
+            text_head_margin: 8px,
+            text_overflow: hidden,
+            text_line_clamp: 3,
+            text_display: none,
+            text_display_hover: -webkit-box,
+            text_box_orient: vertical,
+    )); }
+    @include MixScreen($sizeL) { @include MainProd((
+            card_display: flex,
+
+    )); }
+}

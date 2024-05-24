@@ -1,0 +1,24 @@
+@use "function" as *;
+@use "variable" as *;
+@use "mixins" as *;
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-top: 2px solid $colorBackgroundGray;
+    &-logo {
+
+    }
+    &-contacts {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        > a {
+            @include textXS;
+            padding: 4px;
+            color: $colorTextAccent;
+        }
+    }
+}

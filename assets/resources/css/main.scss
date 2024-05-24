@@ -1,0 +1,82 @@
+@use "sass:map";
+@use "function" as *;
+@use "variable" as *;
+@use "mixins" as *;
+
+@import "header";
+@import "footer";
+@import "mainPage";
+@import "mainAbout";
+@import "prod";
+@import "404";
+
+* {
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+header {
+    flex: none;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+main {
+    flex: auto;
+}
+footer {
+    flex: none;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+.container {
+    @mixin Container($params: null) {
+        margin: GetParam($params, mg, 0 6% 80px);
+    }
+
+    @include MixScreen(null, $sizeL) { @include Container((mg: 0 4% 40px)); }
+    @include MixScreen($size6XL) { @include Container(()); }
+}
+
+.btn {
+    padding: 8px 20px;
+    text-align: center;
+    //backdrop-filter: blur(300px);
+    border: 1px solid $colorBtnAccent;
+    color: $colorTextAccent;
+    cursor: pointer;
+    &:hover {
+        color: $colorTextLight;
+        background-color: $colorTextAccent;
+    }
+}
+
+.logo {
+    > img {
+        width: 350px;
+    }
+}
+
+input, textarea {
+    &:focus-visible {
+        outline: none;
+    }
+}

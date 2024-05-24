@@ -1,0 +1,56 @@
+@use "function" as *;
+@use "variable" as *;
+@use "mixins" as *;
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    &-logo {
+
+    }
+    &-menu {
+        display: flex;
+        gap: 24px;
+        > a {
+            @include textS;
+            padding: 8px;
+            color: $colorTextDark;
+            &:hover {
+                color: $colorTextAccent;
+            }
+        }
+    }
+    &-contacts {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        > a {
+            @include textXS;
+            padding: 4px;
+            color: $colorTextAccent;
+        }
+    }
+    &-burger {
+        display: none;
+        &-menu {
+            display: none;
+            padding: 12px 20px;
+            &-links {
+                > a {
+                    padding: 6px;
+                    color: $colorTextDark;
+                }
+            }
+            &-contacts {
+                padding: 16px 20px;
+                > a {
+                    padding: 4px;
+                    color: $colorTextAccent;
+                }
+            }
+        }
+
+    }
+}

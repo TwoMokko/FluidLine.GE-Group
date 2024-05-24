@@ -1,0 +1,43 @@
+@use "function" as *;
+@use "variable" as *;
+
+@mixin textHeader {
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 52px;
+}
+
+@mixin textXL {
+    font-size: 30px;
+    line-height: 39px;
+    font-weight: 700;
+}
+
+@mixin textL {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 400;
+}
+
+@mixin textMain {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
+}
+
+@mixin textS {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+}
+@mixin textS-bold {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+}
+
+@mixin textXS {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+}
