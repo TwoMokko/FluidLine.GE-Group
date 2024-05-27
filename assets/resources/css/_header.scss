@@ -3,54 +3,80 @@
 @use "mixins" as *;
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    &-logo {
+    @mixin Header($params: null) {
+        margin: GetParam($params, header_margin, 0 6% 80px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        &-logo {
 
-    }
-    &-menu {
-        display: flex;
-        gap: 24px;
-        > a {
-            @include textS;
-            padding: 8px;
-            color: $colorTextDark;
-            &:hover {
-                color: $colorTextAccent;
-            }
         }
-    }
-    &-contacts {
-        display: flex;
-        flex-direction: column;
-        align-items: end;
-        > a {
-            @include textXS;
-            padding: 4px;
-            color: $colorTextAccent;
-        }
-    }
-    &-burger {
-        display: none;
         &-menu {
-            display: none;
-            padding: 12px 20px;
-            &-links {
-                > a {
-                    padding: 6px;
-                    color: $colorTextDark;
-                }
-            }
-            &-contacts {
-                padding: 16px 20px;
-                > a {
-                    padding: 4px;
+            display: GetParam($params, header_display, flex);
+            gap: 24px;
+            > a {
+                @include textS;
+                padding: 8px;
+                color: $colorTextDark;
+                &:hover {
                     color: $colorTextAccent;
                 }
             }
         }
+        &-contacts {
+            display: GetParam($params, header_display, flex);
+            flex-direction: column;
+            align-items: end;
+            > a {
+                @include textXS;
+                padding: 4px;
+                color: $colorTextAccent;
+            }
+        }
+        &-burger {
+            display: GetParam($params, burger_display, null);
+            cursor: pointer;
+            &-menu {
+                //padding: 12px 20px;
+                display: none;
+                position: absolute;
+                z-index: 2;
+                background-color: $colorBackgroundLight;
+                width: 100%;
+                &.active {
+                    display: revert;
+                }
+                &-links {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 16px 20px;
+                    > a {
+                        padding: 6px;
+                        color: $colorTextDark;
+                    }
+                }
+                &-contacts {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 16px 20px;
+                    border-top: 2px solid $colorBackgroundGray;
+                    > a {
+                        padding: 4px;
+                        color: $colorTextAccent;
+                    }
+                }
+            }
 
+        }
     }
+
+    @include MixScreen(null, $size2XL) { @include Header((
+            header_display: none,
+            header_margin: 0 4%
+
+    )); }
+    @include MixScreen($size2XL) { @include Header((
+            burger_display: none
+    )); }
 }

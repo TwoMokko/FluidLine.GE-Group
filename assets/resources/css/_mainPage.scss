@@ -4,19 +4,21 @@
 
 .main-banner {
     @mixin MainBanner($params: null) {
-        //position: relative;
+        position: relative;
         flex: auto;
-        margin: 0 6% 80px;
+        margin: GetParam($params, banner_margin, 0 6% 80px);
         height: 500px;
-        background-image: url("/assets/resources/img/main-banner.png");
+        background-image: url("/assets/resources/img/main-banner.jpg");
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         //height: GetParam($params, img_height, null);
         &-text {
             //position: absolute;
-            height: 100%;
-            width: 42%;
+            height: GetParam($params, text_height, 100%);
+            width: GetParam($params, text_width, 42%);
+            position: GetParam($params, text_pos, null);
+            bottom: 0;
             display: flex;
             flex-direction: column;
             padding: 20px 40px;
@@ -24,14 +26,18 @@
             background-color: #ffffff40;
             backdrop-filter: blur(64px);
             > div:first-child {
-                @include textHeader;
+                font-size: GetParam($params, head_font_size, 40px);
+                line-height: GetParam($params, head_line_height, 52px);
+                font-weight: 700;
                 margin-bottom: 12px;
                 text-transform: uppercase;
             }
             > div:last-child {
-                @include textL;
+                font-size: GetParam($params, text_font_size, 24px);
+                line-height: GetParam($params, text_line_height, 32px);
+                font-weight: 400;
                 padding-bottom: 12px;
-                border-bottom: 10px solid #FFFFFF99;
+                border-bottom: GetParam($params, text_border, 10px) solid #FFFFFF99;
             }
         }
         //> img {
@@ -41,42 +47,74 @@
         //}
     }
 
-    @include MixScreen(null, $sizeL) { @include MainBanner(()); }
+    @include MixScreen(null, $sizeL) { @include MainBanner((
+            banner_margin: 0 0 40px,
+            text_height: 220px,
+            text_width: 100%,
+            text_pos: absolute,
+            head_font_size: 32px,
+            head_line_height: 41px,
+            text_font_size: 20px,
+            text_line_height: 26px,
+            text_border: 5px,
+    )); }
     @include MixScreen($sizeL) { @include MainBanner(()); }
 
 
 }
 
 .main-partners {
-    &-head {
-        @include textXL;
-        padding-bottom: 20px;
-    }
-    &-img {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
-        align-items: center;
-        > img {
-            justify-self: center;
+    @mixin MainPartners($params: null) {
+        &-head {
+            @include textXL;
+            padding-bottom: 20px;
+        }
+        &-img {
+            display: grid;
+            grid-template-columns: repeat(GetParam($params, img_grid, 3), 1fr);
+            gap: GetParam($params, img_gap, 40px);
+            align-items: center;
+            > img {
+                justify-self: center;
+                width: GetParam($params, img_width, null);
+            }
         }
     }
+
+    @include MixScreen(null, $sizeL) { @include MainPartners((
+            img_gap: 16px,
+            img_grid: 2,
+            img_width: 100%
+    )); }
+    @include MixScreen($sizeL) { @include MainPartners(()); }
 }
 
 .main-certificate {
-    &-head {
-        @include textXL;
-        padding-bottom: 20px;
-    }
-    &-img {
-        display: grid;
-        grid-template-columns: repeat(6, 1fr);
-        grid-column-gap: 16px;
-        > img {
-            justify-self: center;
-            object-fit: contain;
-            width: 100%;
-            height: 100%;
+    @mixin MainCertificate($params: null) {
+        &-head {
+            @include textXL;
+            padding-bottom: 20px;
+        }
+        &-img {
+            display: grid;
+            grid-template-columns: repeat(GetParam($params, img_grid, 6), 1fr);
+            grid-column-gap: 16px;
+
+            > img {
+                justify-self: center;
+                object-fit: contain;
+                width: 100%;
+                height: 100%;
+                &:nth-child(n + 3) {
+                    display: GetParam($params, img_display, null);
+                }
+            }
         }
     }
+
+    @include MixScreen(null, $sizeL) { @include MainCertificate((
+            img_grid: 2,
+            img_display: none
+    )); }
+    @include MixScreen($sizeL) { @include MainCertificate(()); }
 }

@@ -53,7 +53,7 @@ a {
     }
 
     @include MixScreen(null, $sizeL) { @include Container((mg: 0 4% 40px)); }
-    @include MixScreen($size6XL) { @include Container(()); }
+    @include MixScreen($sizeL) { @include Container(()); }
 }
 
 .btn {
@@ -70,9 +70,13 @@ a {
 }
 
 .logo {
-    > img {
-        width: 350px;
+    @mixin Logo($params: null) {
+        > img {
+            width: GetParam($params, img_width, 350px);
+        }
     }
+    @include MixScreen(null, $sizeL) { @include Logo((img_width: 211px)); }
+    @include MixScreen($size6XL) { @include Logo(()); }
 }
 
 input, textarea {

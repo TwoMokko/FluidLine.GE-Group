@@ -3,22 +3,27 @@
 @use "mixins" as *;
 
 .footer {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-top: 2px solid $colorBackgroundGray;
-    &-logo {
-
-    }
-    &-contacts {
+    @mixin Footer($params: null) {
         display: flex;
-        flex-direction: column;
-        align-items: end;
-        > a {
-            @include textXS;
-            padding: 4px;
-            color: $colorTextAccent;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        border-top: 2px solid $colorBackgroundGray;
+        &-logo {
+
+        }
+        &-contacts {
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            > a {
+                @include textXS;
+                padding: 4px;
+                color: $colorTextAccent;
+            }
         }
     }
+    @include MixScreen(null, $sizeL) { @include Footer(()); }
+    @include MixScreen($sizeL) { @include Footer(()); }
 }

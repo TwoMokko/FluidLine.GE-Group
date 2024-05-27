@@ -76,7 +76,17 @@
             text_display_hover: -webkit-box,
             text_box_orient: vertical,
     )); }
-    @include MixScreen($sizeL) { @include MainProd((
+    @include MixScreen($sizeL, $size3XL) { @include MainProd((
+            card_display: flex,
+            cards_repeat: 1,
+
+    )); }
+    @include MixScreen($size3XL, $size5XL) { @include MainProd((
+            card_display: flex,
+            cards_repeat: 2,
+
+    )); }
+    @include MixScreen($size5XL) { @include MainProd((
             card_display: flex,
 
     )); }
