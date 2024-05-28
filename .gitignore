@@ -1,0 +1,5 @@
+/node_modules
+/core/cache
+/vendor
+/.env
+/.idea
